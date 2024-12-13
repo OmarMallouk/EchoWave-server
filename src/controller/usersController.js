@@ -25,3 +25,19 @@ export const getUser = async (req,res) =>{
         
     }
 }
+
+export const createUser = async (req,res) =>{
+    const {username,password,email} = req.body;
+
+    try{
+        const user = await Users.create({
+            username,password,email
+        });
+
+        return res.json(user);
+
+    }catch(error){
+        console.log(error.message);
+      
+    }
+}

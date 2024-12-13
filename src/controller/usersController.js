@@ -53,6 +53,7 @@ export const deleteUser = async (req,res) =>{
         }
 
         return res.json(deleted);
+        
     }catch(error){
         console.log(error.message);
 

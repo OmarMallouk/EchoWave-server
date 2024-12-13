@@ -41,3 +41,22 @@ export const createUser = async (req,res) =>{
       
     }
 }
+
+export const deleteUser = async (req,res) =>{
+    const id = req.params.id;
+
+    try{
+        const deleted = await Users.findByIdAndDelete(id);
+
+        if (!deleted){
+            return res.status(404).send({message:"User not found"});
+        }
+
+        return res.json(deleted);
+    }catch(error){
+        console.log(error.message);
+
+        return res.status(500).send({message:"Something went wrong"});
+        
+    }
+}

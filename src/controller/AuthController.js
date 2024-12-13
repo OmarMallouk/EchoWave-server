@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const login = async (req,res) =>{
+    const { username, password } = req.body;
 
     try{
         const user = await Users.findOne({
@@ -36,7 +37,7 @@ export const register = async (req,res)=>{
     const {username,password,email} = req.body;
 
     try{
-        if (!username | !password | !email){
+        if (!username || !password || !email){
             return res.status(500).send({message:"Fill all fields"});
         }
 

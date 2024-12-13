@@ -28,5 +28,32 @@ export const login = async (req,res) =>{
 
         return res.status(500).send({message:"Something went wrong bro :("});
     }
+};
 
-}
+
+
+export const register = async (req,res)=>{
+    const {username,password,email} = req.body;
+
+    try{
+        if (!username | !password | !email){
+            return res.status(500).send({message:"Fill all fields"});
+        }
+
+        const hashed = await bcrypt.hash(password, 10);
+
+        const user = await Users.create({
+            username,
+            password: hashed,
+            email,
+        })
+
+        return res.json(user);
+
+    }catch(error){
+        console.log(error.message);
+
+        return res.status(500).send({message:"Something went wrong"});
+        
+    }
+};

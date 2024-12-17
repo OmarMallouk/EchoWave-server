@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
 import { Users } from "./users.model.js";
 
-export const getUser = async (req,res) =>{
+export const getUser = async (req: Request,res: Response): Promise<Response> =>{
     const id = req.params.id;
 
     try{
@@ -26,7 +27,7 @@ export const getUser = async (req,res) =>{
     }
 }
 
-export const createUser = async (req,res) =>{
+export const createUser = async (req: Request,res: Response): Promise<Response> =>{
     const {username,password,email} = req.body;
 
     try{
@@ -42,7 +43,7 @@ export const createUser = async (req,res) =>{
     }
 }
 
-export const deleteUser = async (req,res) =>{
+export const deleteUser = async (req: Request, res: Response): Promise<Response> =>{
     const id = req.params.id;
 
     try{

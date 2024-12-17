@@ -1,8 +1,12 @@
-import jwt from "jsonwebtoken";
-import { Users } from "../models/users.model.js";
+import {Request, Response, NextFunction } from "express";
+import { Users } from "../modules/userModule/users.model";
+// import jwt from "jsonwebtoken"
+interface JwtPayLoad{
+    userId: string;
+}
 
 
-export const authMiddleware = async (req,res) =>{
+export const authMiddleware = async (req: Request, res:Response, next:NextFunction): Promise<any> =>{
     const authHeader = req.headers.authorization;
 
     if(!authHeader){
@@ -25,14 +29,18 @@ try{
 
     const user = await Users.findById(id);
 
+    if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+
     req.user = user;
 
     next();
 
 
-}catch(error){
+} catch (error: unknown) {
     return res.status(401).send({
-        message: "Unauthorized",
-      });
-    }
+      message: "Unauthorized",
+    });
+  }
 };

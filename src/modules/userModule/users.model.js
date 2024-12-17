@@ -17,9 +17,14 @@ const userSchema = new Schema({
     },
     role:{
         type: String,
-        enum: ["admin","user","advertiser"],
+        enum: ["admin","user","song_producer"],
         default: "user"
-    }, 
+    },
+    profile_picture:{
+        type: String,
+        default: null,
+    } ,
+    
     
 },{ timestamps: true });
 

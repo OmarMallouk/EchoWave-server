@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction } from "express";
 import { Users } from "../modules/userModule/users.model";
-// import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 interface JwtPayLoad{
     userId: string;
 }
@@ -23,7 +23,7 @@ if (splitted.length !== 2 || splitted[0] !== "Bearer"){
 const token = splitted[1];
 
 try{
-    const payload = await jwt.verify(token, "secret");
+    const payload = jwt.verify(token, "secret") as JwtPayLoad;
 
     const id = payload.userId;
 

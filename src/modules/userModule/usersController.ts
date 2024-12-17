@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Users } from "./users.model.js";
 
-export const getUser = async (req: Request,res: Response): Promise<Response> =>{
+export const getUser = async (req: Request,res: Response): Promise<any> =>{
     const id = req.params.id;
 
     try{
@@ -30,7 +30,7 @@ export const getUser = async (req: Request,res: Response): Promise<Response> =>{
     };
 
 
-export const createUser = async (req: Request, res: Response): Promise<Response> => {
+export const createUser = async (req: Request, res: Response): Promise<any> => {
     const { username, password, email } = req.body;
   
     try {
@@ -52,7 +52,7 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     }
   };
 
-export const deleteUser = async (req: Request,res: Response): Promise<Response> =>{
+export const deleteUser = async (req: Request,res: Response): Promise<any> =>{
     const id = req.params.id;
 
     try{

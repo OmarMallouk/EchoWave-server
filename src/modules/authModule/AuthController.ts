@@ -1,9 +1,10 @@
-import { Users } from "../models/users.model.js";
+import {Request, Response} from "express";
+import { Users } from "../userModule/users.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const login = async (req,res) =>{
-    const { username, password } = req.body;
+export const login = async (req: Request,res: Response): Promise<any> =>{
+    const { username, password }: { username: string; password: string } = req.body;
 
     try{
         const user = await Users.findOne({
@@ -14,7 +15,7 @@ export const login = async (req,res) =>{
             return res.status(404).send({message:"Invalid Credentials"});
         }
 
-        const check = await bcrypt.compare(password, user.password);
+        const check = await bcrypt.compare(password, user.password as string);
 
         if (!check){
             return res.status(404).send({message:"Invalid Credentials"});
@@ -24,16 +25,15 @@ export const login = async (req,res) =>{
         
         return res.status(200).send({user,token});
 
-    }catch(error){
-        console.error(error.message);
+    } catch (error: unknown) {
+        console.error((error as Error).message); 
+    
+        return res.status(500).send({ message: "Something went wrong bro :(" });
+      }
+    };
 
-        return res.status(500).send({message:"Something went wrong bro :("});
-    }
-};
 
-
-
-export const register = async (req,res)=>{
+export const register = async (req: Request, res: Response): Promise<any> =>{
     const {username,password,email} = req.body;
 
     try{
@@ -51,10 +51,9 @@ export const register = async (req,res)=>{
 
         return res.json(user);
 
-    }catch(error){
-        console.log(error.message);
-
-        return res.status(500).send({message:"Something went wrong"});
-        
-    }
-};
+    } catch (error: unknown) {
+        console.error((error as Error).message);
+    
+        return res.status(500).send({ message: "Something went wrong" });
+      }
+    };

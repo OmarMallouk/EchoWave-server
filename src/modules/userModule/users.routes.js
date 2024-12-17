@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getUser, createUser, deleteUser } from "../controller/usersController.js";
+import {getUser,createUser,deleteUser} from "./usersController"
 import { authMiddleware } from "../../middleware/auth.middleware.js";
 
 
-const router = new Router();
+const router =  Router();
 
 router.get("/:id?",authMiddleware, getUser);
 router.post("/create", createUser);

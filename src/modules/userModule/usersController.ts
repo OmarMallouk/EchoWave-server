@@ -19,31 +19,40 @@ export const getUser = async (req: Request,res: Response): Promise<Response> =>{
         return res.json(users)
 
 
-    }catch(error){
-        console.log(error.message);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("An unknown error occurred.");
+        }
+        return res.status(500).send({ message: "Something went wrong :(" });
+      }
+    };
 
-        return res.status(500).send({message:"Something went wrong :(("});
-        
-    }
-}
 
-export const createUser = async (req: Request,res: Response): Promise<Response> =>{
-    const {username,password,email} = req.body;
-
-    try{
-        const user = await Users.create({
-            username,password,email
-        });
-
-        return res.json(user);
-
-    }catch(error){
-        console.log(error.message);
+export const createUser = async (req: Request, res: Response): Promise<Response> => {
+    const { username, password, email } = req.body;
+  
+    try {
+      const user = await Users.create({
+        username,
+        password,
+        email,
+      });
+  
+      return res.json(user);
+    } catch (error: unknown) {
+        if(error instanceof Error){
+            console.error(error.message);
+        } else {
+            console.log("An unknown error occurred.");
+          }
       
+      return res.status(500).send({ message: "Failed to create user" });
     }
-}
+  };
 
-export const deleteUser = async (req: Request, res: Response): Promise<Response> =>{
+export const deleteUser = async (req: Request,res: Response): Promise<Response> =>{
     const id = req.params.id;
 
     try{
@@ -55,10 +64,13 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response>
 
         return res.json(deleted);
         
-    }catch(error){
-        console.log(error.message);
-
+    }catch(error: unknown){
+        if(error instanceof Error){
+            console.log(error.message);
+        }else{
+            console.log("An unknown error occurred.");
+        }
         return res.status(500).send({message:"Something went wrong"});
         
     }
-}
+};

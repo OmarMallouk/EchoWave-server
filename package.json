@@ -1,12 +1,14 @@
 {
   "name": "echowave-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev src/index.js",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +22,11 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
   }
 }

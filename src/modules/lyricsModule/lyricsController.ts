@@ -32,7 +32,7 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
     };
 
 
-    const createLyric = async (req: Request, res:Response): Promise<any> =>{
+   export const createLyric = async (req: Request, res:Response): Promise<any> =>{
         const {title, content, user, mood, genre} = req.body;
 
         try{

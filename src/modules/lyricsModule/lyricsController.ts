@@ -37,8 +37,25 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
 
         try{
 
+            if(!title || !content || !user){
+                return res.status(400).send({
+                    message: "All fields are required!"
+                });
+            }
+            const newlyric = await Lyrics.create({
+                title,
+                content,
+                user,
+                mood,
+                genre
+            })
 
+            await newlyric.save();
 
+            return res.status(200).send({
+                message: "Lyric created successfully",
+                lyric: newlyric,
+            });
 
         }catch(error: unknown){
             if(error instanceof Error){

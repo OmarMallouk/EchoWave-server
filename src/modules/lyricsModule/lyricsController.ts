@@ -16,5 +16,16 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
             }
             return res.json(lyric);
         }   
-       
+        const lyrics = await Lyrics.find();
+
+        return res.json(lyrics);
+
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("An unknown error occurred.");
+        }
+        return res.status(500).send({ message: "Something went wrong :(" });
+      }
     };

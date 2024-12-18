@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types} from "mongoose";
 
 
-interface ILyrics extends Document{
+interface ILyric extends Document{
     title: String,
     content: String,
     user: Types.ObjectId;
@@ -17,14 +17,17 @@ interface ILyrics extends Document{
     updated_at: Date;
 }
 
-const lyricSchema = new Schema<ILyrics>({
+const lyricSchema = new Schema<ILyric>({
+
     title:{
         type: String,
         required: true,
     },
+
     content:{
         type: String,
         required: true,
+
         user:{
             type: Schema.Types.ObjectId, ref: 'Users',
             required: true,
@@ -39,10 +42,29 @@ const lyricSchema = new Schema<ILyrics>({
                 type: String,
                 required: false
             },
-        }
+        },
 
-        
+        genre:{
+            name:{
+                type: String,
+                required: false
+            },
+            description:{
+                type: String,
+                required: false
+            },
+        },
 
-        
+        created_at: { 
+            type: Date,
+             default: Date.now 
+        },
+
+        updated_at: {
+             type: Date,
+              default: Date.now
+             }
     }
 })
+
+export const Lyrics = model<ILyric>("Lyrics", lyricSchema);

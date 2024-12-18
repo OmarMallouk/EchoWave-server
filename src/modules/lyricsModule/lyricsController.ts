@@ -65,5 +65,22 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
             }
             return res.status(500).send({ message: "Something went wrong :(" });
         }
-
     }
+
+
+    export const deleteLyric = async (req: Request, res: Response): Promise<any> => {
+        const  id  = req.params;
+      
+        try {
+          const lyric = await Lyrics.findById(id);
+      
+          if (!lyric) {
+            return res.status(404).send({
+              message: "Lyric not found :(",
+            });
+          }
+    
+          await Lyrics.findByIdAndDelete(id);
+      
+         
+      };

@@ -13,4 +13,36 @@ interface ILyrics extends Document{
         name: string;
         description?: string;
     };
+    created_at: Date;
+    updated_at: Date;
 }
+
+const lyricSchema = new Schema<ILyrics>({
+    title:{
+        type: String,
+        required: true,
+    },
+    content:{
+        type: String,
+        required: true,
+        user:{
+            type: Schema.Types.ObjectId, ref: 'Users',
+            required: true,
+        },
+        
+        mood:{
+            name:{
+                type: String,
+                required: false
+            },
+            description:{
+                type: String,
+                required: false
+            },
+        }
+
+        
+
+        
+    }
+})

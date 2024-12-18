@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Lyrics } from "./lyrics.model";
+import { log } from "console";
 
 
 export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
@@ -29,3 +30,23 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
         return res.status(500).send({ message: "Something went wrong :(" });
       }
     };
+
+
+    const createLyric = async (req: Request, res:Response): Promise<any> =>{
+        const {title, content, user, mood, genre} = req.body;
+
+        try{
+
+
+
+
+        }catch(error: unknown){
+            if(error instanceof Error){
+                console.log(error.message);
+            }else{
+                console.log("An unknown error occurred.");
+            }
+            return res.status(500).send({ message: "Something went wrong :(" });
+        }
+
+    }

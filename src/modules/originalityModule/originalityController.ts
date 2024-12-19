@@ -72,3 +72,19 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
             }
         }
     
+
+
+         export const deleteOriginality = async (req: Request, res: Response): Promise<any> => {
+                const  id  = req.params;
+              
+                try {
+                  const originality = await Originality.findById(id);
+              
+                  if (!originality) {
+                    return res.status(404).send({
+                      message: "Lyric Originality not found :(",
+                    });
+                  }
+            
+                 
+              };

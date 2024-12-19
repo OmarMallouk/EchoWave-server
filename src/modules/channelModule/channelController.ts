@@ -29,3 +29,17 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
         return res.status(500).send({ message: "Something went wrong :(" });
       }
     };
+
+
+     export const createChannel = async (req: Request, res:Response): Promise<any> =>{
+                const {name,description,lyrics,producerId} = req.body;
+        
+                try{           
+    
+                      if(!name || !description || !lyrics || !producerId){
+                        return res.status(400).send({message:"all fields are required :)"})
+                      }
+               
+            }
+        
+    

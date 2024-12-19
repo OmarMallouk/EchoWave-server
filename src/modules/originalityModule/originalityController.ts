@@ -91,5 +91,12 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
                   return res.status(200).json({
                     message: "Lyric Originality deleted successfully!",
                   });
-               
+                } catch (error: unknown) {
+                  if (error instanceof Error) {
+                    console.error("Error deleting the originality",error.message);
+                  } else {
+                    console.log("An unknown error occurred.");
+                  }
+                  return res.status(500).send({ message: "Something went wrong while deleting the originality :(" });
+                }
               };

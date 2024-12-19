@@ -86,5 +86,10 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
                     });
                   }
             
-                 
+                  await Originality.findByIdAndDelete(id);
+              
+                  return res.status(200).json({
+                    message: "Lyric Originality deleted successfully!",
+                  });
+               
               };

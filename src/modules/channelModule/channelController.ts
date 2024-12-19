@@ -64,3 +64,20 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
             }
         
     
+
+         export const deleteChannel = async (req: Request, res: Response): Promise<any> => {
+                const  id  = req.params;
+              
+                try {
+                  const channel = await Channel.findById(id);
+              
+                  if (!channel) {
+                    return res.status(404).send({
+                      message: "Channel not found :(",
+                    });
+                  }
+            
+                  await Channel.findByIdAndDelete(id);
+              
+                
+              };      

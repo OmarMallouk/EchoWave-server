@@ -22,7 +22,7 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
 
     } catch (error: unknown) {
         if (error instanceof Error) {
-          console.log(error.message);
+          console.error("Something went wrong while fetching the originality",error.message);
         } else {
           console.log("An unknown error occurred.");
         }

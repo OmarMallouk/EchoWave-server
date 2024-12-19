@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Lyrics } from "./lyrics.model";
-import { log } from "console";
+
 
 
 export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
@@ -23,7 +23,7 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
 
     } catch (error: unknown) {
         if (error instanceof Error) {
-          console.log(error.message);
+          console.error("error fetching lyric",error.message);
         } else {
           console.log("An unknown error occurred.");
         }
@@ -59,7 +59,7 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
 
         }catch(error: unknown){
             if(error instanceof Error){
-                console.log(error.message);
+                console.error("Error creating lyric",error.message);
             }else{
                 console.log("An unknown error occurred.");
             }
@@ -87,7 +87,7 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
           });
         } catch (error: unknown) {
           if (error instanceof Error) {
-            console.log(error.message);
+            console.error("error while deleting the lyric",error.message);
           } else {
             console.log("An unknown error occurred.");
           }

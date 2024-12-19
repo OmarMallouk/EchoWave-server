@@ -59,6 +59,16 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
     
                 return res.status(200).send({
                     message: "Lyric Originality created successfully",
-       
+                    orginality: newOriginality,
+                });
+    
+            }catch(error: unknown){
+                if(error instanceof Error){
+                    console.error("Error creating originality",error.message);
+                }else{
+                    console.log("An unknown error occurred.");
+                }
+                return res.status(500).send({ message: "Something went wrong while creating originality :(" });
+            }
         }
     

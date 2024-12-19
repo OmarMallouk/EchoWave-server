@@ -16,5 +16,16 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
             }
             return res.json(channel);
         }   
-     
+        const channels = await Channel.find();
+
+        return res.json(channels);
+
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("Something went wrong while fetching the channel",error.message);
+        } else {
+          console.log("An unknown error occurred.");
+        }
+        return res.status(500).send({ message: "Something went wrong :(" });
+      }
     };

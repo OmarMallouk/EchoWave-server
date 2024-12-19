@@ -39,7 +39,15 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
                       if(!name || !description || !lyrics || !producerId){
                         return res.status(400).send({message:"all fields are required :)"})
                       }
-               
+                    const newChannel = await Channel.create({
+                        name,
+                        description,
+                        lyrics,
+                        producerId
+                    })
+        
+                    await newChannel.save();
+        
             }
         
     

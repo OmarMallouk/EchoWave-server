@@ -45,6 +45,20 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
                   if(!originality_score || !userId || !risk_level){
                     return res.status(400).send({message:"originality, userId, and risk_level are required :)"})
                   }
-          
+                const newOriginality = await Originality.create({
+                    lyrics,
+                    file_url,
+                    lyricId,
+                    originality_score,
+                    userId,
+                    suggestions: suggestions || [], //if not provided just return empty arra
+                    risk_level
+                })
+    
+                await newOriginality.save();
+    
+                return res.status(200).send({
+                    message: "Lyric Originality created successfully",
+       
         }
     

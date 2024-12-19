@@ -29,3 +29,22 @@ export const getOriginality = async (req: Request, res: Response): Promise<any> 
         return res.status(500).send({ message: "Something went wrong :(" });
       }
     };
+
+
+     export const createOriginality = async (req: Request, res:Response): Promise<any> =>{
+            const {lyrics, file_url, lyricId, originality_score, userId, suggestions, risk_level} = req.body;
+    
+            try{
+    
+                if (!lyrics && !file_url && !lyricId) {
+                    return res.status(400).send({
+                      message: "Please provide either lyrics, a file URL, or an existing lyric ID.",
+                    });
+                  }
+
+                  if(!originality_score || !userId || !risk_level){
+                    return res.status(400).send({message:"originality, userId, and risk_level are required :)"})
+                  }
+          
+        }
+    

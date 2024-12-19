@@ -48,6 +48,19 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
         
                     await newChannel.save();
         
+                    return res.status(200).send({
+                        message: "Lyric Originality created successfully",
+                        channel: newChannel,
+                    });
+        
+                }catch(error: unknown){
+                    if(error instanceof Error){
+                        console.error("Error creating channel",error.message);
+                    }else{
+                        console.log("An unknown error occurred.");
+                    }
+                    return res.status(500).send({ message: "Something went wrong while creating the channel :(" });
+                }
             }
         
     

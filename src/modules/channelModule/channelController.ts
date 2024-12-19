@@ -82,6 +82,12 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
                   return res.status(200).json({
                     message: "Channel deleted successfully!",
                   });
-             res.status(500).send({ message: "Something went wrong while deleting the Channel :(" });
+                } catch (error: unknown) {
+                  if (error instanceof Error) {
+                    console.error("Error deleting the Channel",error.message);
+                  } else {
+                    console.log("An unknown error occurred.");
+                  }
+                  return res.status(500).send({ message: "Something went wrong while deleting the Channel :(" });
                 }
               };      

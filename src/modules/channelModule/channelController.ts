@@ -79,5 +79,9 @@ export const getChannel = async (req: Request, res: Response): Promise<any> =>{
             
                   await Channel.findByIdAndDelete(id);
               
-                
+                  return res.status(200).json({
+                    message: "Channel deleted successfully!",
+                  });
+             res.status(500).send({ message: "Something went wrong while deleting the Channel :(" });
+                }
               };      

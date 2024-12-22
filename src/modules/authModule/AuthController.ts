@@ -12,16 +12,17 @@ export const login = async (req: Request,res: Response): Promise<any> =>{
         });
 
         if(!user){
-            return res.status(404).send({message:"Invalid Credentials"});
+            return res.status(401).send({message:"Invalid Credentials"});
         }
 
         const check = await bcrypt.compare(password, user.password as string);
 
         if (!check){
-            return res.status(404).send({message:"Invalid Credentials"});
+            return res.status(401).send({message:"Invalid Credentials"});
         }
 
         const token = await jwt.sign({userId: user.id},"secret");
+        
         
         return res.status(200).send({user,token});
 
@@ -38,18 +39,22 @@ export const register = async (req: Request, res: Response): Promise<any> =>{
 
     try{
         if (!username || !password || !email){
-            return res.status(500).send({message:"Fill all fields"});
+            return res.status(400).send({message:"Fill all fields"});
         }
 
         const hashed = await bcrypt.hash(password, 10);
+        console.log("Hashed Password:", hashed);
 
-        const user = await Users.create({
+        const userPayload = {
             username,
             password: hashed,
             email,
-        })
+        };
+        console.log("User Payload:", userPayload);
 
-        return res.json(user);
+        const user = await Users.create(userPayload);
+
+        return res.status(201).send({ message: "User registered successfully!" });
 
     } catch (error: unknown) {
         console.error((error as Error).message);

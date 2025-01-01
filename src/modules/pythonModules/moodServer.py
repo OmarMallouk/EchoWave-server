@@ -14,6 +14,23 @@ app = Flask(__name__)
 def generate_lyrics():
     data = request.json
     prompt = data.get("prompt", "")
+    if not prompt:
+        return jsonify({"error": "No prompt provided"}), 400
+
+
+    tokenized_inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
+
+    try:
+        outputs = model.generate(
+            input_ids=tokenized_inputs['input_ids'],
+            attention_mask=tokenized_inputs['attention_mask'],
+           
+        )
+
   
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == '__main__':
     app.run(port=5000,debug=True)

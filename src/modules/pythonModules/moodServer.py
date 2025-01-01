@@ -24,7 +24,11 @@ def generate_lyrics():
         outputs = model.generate(
             input_ids=tokenized_inputs['input_ids'],
             attention_mask=tokenized_inputs['attention_mask'],
-           
+            max_length=150,
+            num_return_sequences=1,
+            do_sample=True,
+
+            pad_token_id=tokenizer.eos_token_id,
         )
 
   

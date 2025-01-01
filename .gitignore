@@ -1,4 +1,4 @@
 /node_modules
 .env
 /dist
-.safetensors
+src/modules/pythonModules/moodModelFolder/model.safetensors

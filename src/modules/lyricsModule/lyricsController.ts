@@ -42,12 +42,13 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
                     message: "All fields are required!"
                 });
             }
+
             const newlyric = await Lyrics.create({
                 title,
                 content,
                 user,
-                mood,
-                genre
+                mood: mood || {} ,
+                genre: genre || "",
             })
 
             await newlyric.save();

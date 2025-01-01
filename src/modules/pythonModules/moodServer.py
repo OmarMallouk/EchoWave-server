@@ -10,7 +10,10 @@ app = Flask(__name__)
 
 
 
-
-
+@app.route('/generate', methods=['POST'])
+def generate_lyrics():
+    data = request.json
+    prompt = data.get("prompt", "")
+  
 if __name__ == '__main__':
     app.run(port=5000,debug=True)

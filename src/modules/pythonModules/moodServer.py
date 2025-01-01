@@ -31,7 +31,9 @@ def generate_lyrics():
             pad_token_id=tokenizer.eos_token_id,
         )
 
-  
+        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        clean_text = generated_text.replace('\n', ' ').strip()
+        return jsonify({"generated_text": clean_text})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

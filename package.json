@@ -9,7 +9,6 @@
     "start": "node dist/index.js",
     "preserve": "npm run build",
     "serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""
-    
   },
   "keywords": [],
   "author": "",
@@ -26,6 +25,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",

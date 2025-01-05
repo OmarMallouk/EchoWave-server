@@ -1,6 +1,6 @@
 /node_modules
 .env
 /dist
-src/modules/pythonModules/moodModelFolder/model.safetensors
+src/modules/pythonModules/moodModel/model.safetensors
 src/modules/pythonModules/genreModel/model.safetensors
 src/modules/pythonModules/originalityModel/normalized_vectors.pkl

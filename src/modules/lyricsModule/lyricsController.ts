@@ -42,20 +42,29 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
                     message: "All fields are required!"
                 });
             }
+               
 
             const newlyric = await Lyrics.create({
                 title,
                 content,
                 user,
-                mood: mood || {} ,
-                genre: genre || "",
+                mood: mood || [], // Default to empty array if not provided
+                genre: genre || [], // Default to empty array if not provided
             })
 
-            await newlyric.save();
+            const lyric = await Lyrics.findById(newlyric.id)
+
+          
+
+            const populatedLyric = await newlyric.populate([
+              { path: 'user', strictPopulate: false },
+              { path: 'mood', strictPopulate: false },
+              { path: 'genre', strictPopulate: false }
+          ]);
 
             return res.status(200).send({
                 message: "Lyric created successfully",
-                lyric: newlyric,
+                lyric: populatedLyric,
             });
 
         }catch(error: unknown){

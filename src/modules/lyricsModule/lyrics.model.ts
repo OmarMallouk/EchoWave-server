@@ -18,7 +18,8 @@ interface ILyric extends Document {
     title: string;
     content: string;
     user: Types.ObjectId;
-
+    mood?: { name: string }[];
+    genre?: { name: string }[];
     created_at: Date;
     updated_at: Date;
 }
@@ -38,7 +39,8 @@ const lyricSchema = new Schema<ILyric>(
             ref: "Users",
             required: true,
         },
-
+        mood: [moodSchema], 
+        genre: [genreSchema],
        
     },
     { timestamps: true } 

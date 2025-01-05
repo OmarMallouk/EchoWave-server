@@ -4,6 +4,7 @@ import cors from "cors";
 import connectToDatabase from "./base/connection";
 import userRoutes from "./modules/userModule/users.routes";
 import authRoutes from "./modules/authModule/auth.routes";
+import lyricRoutes from "./modules/lyricsModule/lyrics.routes";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors({
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/lyrics", lyricRoutes);
 
 app.listen(8080, async () => {
     console.log("Server running on port 8080");

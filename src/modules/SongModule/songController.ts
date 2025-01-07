@@ -46,3 +46,14 @@ export const getAllSongs = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
+export const getSongsByProducer = async (req: Request, res: Response): Promise<void> => {
+    const { producerId } = req.params;
+
+    try {
+        const songs = await Song.find({ producerId });
+        res.status(200).send(songs);
+    } catch (error) {
+        console.error("Error fetching songs:", error instanceof Error ? error.message : "Unknown error");
+        res.status(500).send({ message: "Failed to fetch songs." });
+    }
+};

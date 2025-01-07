@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Lyrics } from "./lyrics.model";
+import { Users } from "../userModule/users.model";
 
 
 
@@ -48,19 +49,23 @@ export const getLyrics = async (req: Request, res: Response): Promise<any> =>{
                 title,
                 content,
                 user,
-                mood: mood || [], // Default to empty array if not provided
-                genre: genre || [], // Default to empty array if not provided
-            })
+                mood: mood || [], 
+                genre: genre || [], 
+            });
 
-            const lyric = await Lyrics.findById(newlyric.id)
+            const userToUpdate = await Users.findById(user);
+        if (!userToUpdate) {
+            return res.status(404).send({ message: "User not found." });
+        }
 
-          
+        userToUpdate.lyrics.push(newlyric.id);
+        await userToUpdate.save();
 
-            const populatedLyric = await newlyric.populate([
-              { path: 'user', strictPopulate: false },
-              { path: 'mood', strictPopulate: false },
-              { path: 'genre', strictPopulate: false }
-          ]);
+        const populatedLyric = await newlyric.populate([
+          { path: 'user', strictPopulate: false },
+          { path: 'mood', strictPopulate: false },
+          { path: 'genre', strictPopulate: false }
+      ]);
 
             return res.status(200).send({
                 message: "Lyric created successfully",

@@ -1,41 +1,55 @@
-import { Schema, model, Document} from "mongoose";
+import { Schema, model, Document, Types} from "mongoose";
 import bcrypt from "bcrypt";
 
 interface IUser extends Document{
 username: String;
 password: String;
+lyrics: Types.ObjectId[],
 email: String;
 role: "admin" | "user" | "song_producer";
 profile_picture?: String;
+channelName?: String;
 }
 
 const userSchema = new Schema<IUser>({
-    username:{
+    username: {
         type: String,
         required: true,
         unique: true,
     },
-    password:{
+    password: {
         type: String,
         required: true,
     },
-    email:{
+    email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-    role:{
+    role: {
         type: String,
-        enum: ["admin","user","song_producer"],
-        default: "user"
+        enum: ["admin", "user", "song_producer"],
+        default: "user",
     },
-    profile_picture:{
+    profile_picture: {
         type: String,
         default: null,
-    } ,
-    
-    
-},{ timestamps: true });
+    },
+    channelName: {
+        type: String,
+        required: function () {
+            return this.role === "song_producer";
+        },
+        default: null,
+    },
+    lyrics: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Lyrics",
+        },
+    ],
+}, { timestamps: true });
+
 
 userSchema.pre("save", async function (next) {
     if (this.isModified("password")) {

@@ -21,7 +21,14 @@ export const createSong = async (req: Request, res: Response): Promise<void> => 
 
         const mergedLyrics = await mergeLyrics(lyricsData[0].content, lyricsData[1].content);
 
-    
+        const newSong = await Song.create({
+            title,
+            lyrics: mergedLyrics,
+            originalLyrics: lyricIds,
+            producerId,
+        });
+
+        res.status(201).send({ message: "Song created successfully!", song: newSong });
     } catch (error) {
         console.error("Error creating song:", error instanceof Error ? error.message : "Unknown error");
         res.status(500).send({ message: "Failed to create song." });

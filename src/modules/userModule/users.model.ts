@@ -14,7 +14,13 @@ const commentSchema = new Schema<IComment>({
 });
 
 
-
+interface ISong {
+    _id: Types.ObjectId;
+    title: string;
+    content: string;
+    comments?: Types.DocumentArray<IComment>;
+    created_at: Date;
+}
 
 interface IUser extends Document{
 username: String;

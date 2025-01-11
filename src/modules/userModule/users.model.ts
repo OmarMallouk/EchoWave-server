@@ -81,7 +81,14 @@ const userSchema = new Schema<IUser>({
             ref: "Lyrics",
         },
     ],
-
+    songs: {
+        type: [songSchema],
+        default: [],
+    },
+    bookmarkedChannels: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: "Users", default: [] 
+    }],
 }, { timestamps: true });
 
 

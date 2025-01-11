@@ -64,7 +64,18 @@ export const generateAlternativeLyrics = async (req: Request, res: Response): Pr
 
     Enhanced Lyrics:`;
 
-   
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a songwriting assistant." },
+        { role: "user", content: prompt },
+      ],
+      max_tokens: 200,
+      temperature: 0.7,
+    });
+
+    const alternativeLyrics = response.choices[0]?.message?.content?.trim() || "Failed to generate lyrics.";
+    res.status(200).json({ alternativeLyrics });
   } catch (error) {
     console.error("Error generating alternative lyrics:", error instanceof Error ? error.message : error);
     res.status(500).json({ error: "Failed to generate alternative lyrics. Please try again later." });

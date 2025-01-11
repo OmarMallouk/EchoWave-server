@@ -15,7 +15,10 @@ export const mergeLyrics = async (req: Request, res: Response): Promise<void> =>
 
   try {
     const prompt = `You are a songwriting assistant. Merge the following two sets of lyrics into a cohesive and creative new song. Ensure the song has:
-
+- A meaningful narrative that combines elements of both sets of lyrics.
+- Clear verses, a chorus, and a bridge.
+- Grammatically correct and meaningful lines.
+- A tone that matches the mood of the lyrics.
  
 First Lyrics: ${lyrics1}
 Second Lyrics: ${lyrics2}

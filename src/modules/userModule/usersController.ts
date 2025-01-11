@@ -119,3 +119,21 @@ export const bookmarkChannel = async (req: Request, res: Response): Promise<any>
 };
 
 
+
+export const addComment = async (req: Request, res: Response): Promise<any> => {
+  const { userId, songId, producerId, comment } = req.body;
+
+  try {
+    const producer = await Users.findById(producerId).populate('songs.comments'); 
+    if (!producer) {
+      return res.status(404).send({ message: "Producer not found" });
+    }
+
+    const song = producer.songs?.find((song) => song._id.toString() === songId.toString());
+  
+
+  } catch (error) {
+    console.error("Error adding comment", error);
+    return res.status(500).send({ message: "Something went wrong :(" });
+  }
+};

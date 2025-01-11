@@ -130,7 +130,14 @@ export const addComment = async (req: Request, res: Response): Promise<any> => {
     }
 
     const song = producer.songs?.find((song) => song._id.toString() === songId.toString());
-  
+    if (!song) {
+      return res.status(404).send({ message: "Song not found" });
+    }
+
+    song.comments?.push({ user: userId, content: comment, created_at: new Date() });
+    await producer.save();
+
+    return res.status(200).send({ message: "Comment added successfully", updatedSong: song });
 
   } catch (error) {
     console.error("Error adding comment", error);

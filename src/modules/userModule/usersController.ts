@@ -101,7 +101,15 @@ export const bookmarkChannel = async (req: Request, res: Response): Promise<any>
       return res.status(404).send({ message: "Producer not found or invalid ID" });
     }
 
-  
+    const user = await Users.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    
+    user.bookmarkedChannels = user.bookmarkedChannels || [];
+    user.bookmarkedChannels.push(producerId);
+    await user.save();
+
     return res.status(200).send({ message: "Channel bookmarked successfully" });
 
   } catch (error) {

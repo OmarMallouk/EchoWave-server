@@ -30,9 +30,19 @@ email: String;
 role: "admin" | "user" | "song_producer";
 profile_picture?: String;
 channelName?: String;
-
+songs?: ISong[];
+bookmarkedChannels?: Types.ObjectId[];
 }
 
+const songSchema = new Schema<ISong>(
+    {
+        title: { type: String, required: true },
+        content: { type: String, required: true },
+        comments: { type: [commentSchema], default: [] },
+        created_at: { type: Date, default: Date.now },
+    },
+    { _id: true }
+);
 
 const userSchema = new Schema<IUser>({
     username: {

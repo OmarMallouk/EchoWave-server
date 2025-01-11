@@ -1,6 +1,21 @@
 import { Schema, model, Document, Types} from "mongoose";
 import bcrypt from "bcrypt";
 
+interface IComment {
+    user: Types.ObjectId; 
+    content: string; 
+    created_at: Date;
+}
+
+const commentSchema = new Schema<IComment>({
+    user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    content: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
+});
+
+
+
+
 interface IUser extends Document{
 username: String;
 password: String;
@@ -9,7 +24,9 @@ email: String;
 role: "admin" | "user" | "song_producer";
 profile_picture?: String;
 channelName?: String;
+
 }
+
 
 const userSchema = new Schema<IUser>({
     username: {
@@ -48,6 +65,7 @@ const userSchema = new Schema<IUser>({
             ref: "Lyrics",
         },
     ],
+
 }, { timestamps: true });
 
 

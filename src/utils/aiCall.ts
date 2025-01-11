@@ -44,3 +44,29 @@ Merged Song:`;
 };
 
 
+export const generateAlternativeLyrics = async (req: Request, res: Response): Promise<void> => {
+  const { lyrics } = req.body;
+
+  if (!lyrics) {
+    res.status(400).json({ error: "Lyrics are required." });
+    return;
+  }
+
+  try {
+    const prompt = `You are a songwriting assistant. Enhance and rewrite the following lyrics creatively. 
+    Ensure the new lyrics:
+    - Maintain the original theme and tone.
+    - Improve rhyme, flow, and language.
+    - Add creative flair where appropriate.
+
+    Original Lyrics: 
+    ${lyrics}
+
+    Enhanced Lyrics:`;
+
+   
+  } catch (error) {
+    console.error("Error generating alternative lyrics:", error instanceof Error ? error.message : error);
+    res.status(500).json({ error: "Failed to generate alternative lyrics. Please try again later." });
+  }
+};

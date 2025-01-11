@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Users } from "./users.model.js";
+import { Types } from "mongoose";
 
 export const getUser = async (req: Request,res: Response): Promise<any> =>{
     const id = req.params.id;
@@ -89,3 +90,24 @@ export const deleteUser = async (req: Request,res: Response): Promise<any> =>{
         
     }
 };
+
+
+export const bookmarkChannel = async (req: Request, res: Response): Promise<any> => {
+  const { userId, producerId } = req.body;
+
+  try {
+    const producer = await Users.findById(producerId);
+    if (!producer || producer.role !== 'song_producer') {
+      return res.status(404).send({ message: "Producer not found or invalid ID" });
+    }
+
+  
+    return res.status(200).send({ message: "Channel bookmarked successfully" });
+
+  } catch (error) {
+    console.error("Error bookmarking channel", error);
+    return res.status(500).send({ message: "Something went wrong :(" });
+  }
+};
+
+

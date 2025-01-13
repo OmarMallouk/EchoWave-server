@@ -22,6 +22,7 @@ app.use("/users", userRoutes);
 app.use("/lyrics", lyricRoutes);
 app.use("/api/lyrics", aiRoutes);
 app.use("/api/", songs);
+app.use('/uploads', express.static('uploads'));
 
 app.listen(8080, async () => {
     console.log("Server running on port 8080");

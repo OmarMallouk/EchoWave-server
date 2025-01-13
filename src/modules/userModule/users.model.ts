@@ -27,6 +27,7 @@ username: String;
 password: String;
 lyrics: Types.ObjectId[],
 email: String;
+description: String;
 role: "admin" | "user" | "song_producer";
 profile_picture?: String;
 channelName?: String;
@@ -53,6 +54,10 @@ const userSchema = new Schema<IUser>({
     password: {
         type: String,
         required: true,
+    },
+    description:{
+        type: String,
+        required: false
     },
     email: {
         type: String,

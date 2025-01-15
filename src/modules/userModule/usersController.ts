@@ -132,6 +132,11 @@ export const addComment = async (req: Request, res: Response): Promise<any> => {
       return res.status(400).send({ message: "All fields are required!" });
     }
 
+    const user = await Users.findById(userId).select("profile_picture username");
+    if (!user) {
+      return res.status(404).send({ message: "User not found." });
+    }
+
     const producer = await Users.findOne({ "songs._id": songId });
     if (!producer) {
       return res.status(404).send({ message: "Song not found." });
@@ -145,9 +150,11 @@ export const addComment = async (req: Request, res: Response): Promise<any> => {
     song.comments?.push({
       user: userId,
       content: comment,
+      profile_picture: user.profile_picture || null,
+      username: user.username,
       created_at: new Date(),
     });
-    
+
     await producer.save();
 
     return res.status(200).send({
@@ -156,9 +163,11 @@ export const addComment = async (req: Request, res: Response): Promise<any> => {
     });
   } catch (error) {
     console.error("Error adding comment:", error);
-    return res.status(500).send({ message: "Something went wrong :(" });
+    return res.status(500).send({ message: "Something went wrong :(", error });
   }
 };
+
+
 
 
 
@@ -183,10 +192,6 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
 
     if (req.file) {
       req.body.profile_picture = `/uploads/${req.file.filename}`;
-    }
-
-    if (updates.role === "song_producer" && !updates.channelName) {
-      return res.status(400).send({ message: "Channel name is required for song producers." });
     }
 
     const user = await Users.findById(id);

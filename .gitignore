@@ -3,4 +3,4 @@
 /dist
 src/modules/pythonModules/moodModel/model.safetensors
 src/modules/pythonModules/genreModel/model.safetensors
-src/modules/pythonModules/originalityModel/normalized_vectors.pkl
+# src/modules/pythonModules/originalityModel/normalized_vectors.pkl

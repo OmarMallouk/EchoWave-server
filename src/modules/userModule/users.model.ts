@@ -4,12 +4,16 @@ import bcrypt from "bcrypt";
 interface IComment {
     user: Types.ObjectId; 
     content: string; 
+    profile_picture?: string;
+    username?: string;
     created_at: Date;
 }
 
 const commentSchema = new Schema<IComment>({
     user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
     content: { type: String, required: true },
+    profile_picture: { type: String, required: false },
+    username: { type: String, required: false },
     created_at: { type: Date, default: Date.now },
 });
 
@@ -27,6 +31,7 @@ username: String;
 password: String;
 lyrics: Types.ObjectId[],
 email: String;
+description: String;
 role: "admin" | "user" | "song_producer";
 profile_picture?: String;
 channelName?: String;
@@ -53,6 +58,10 @@ const userSchema = new Schema<IUser>({
     password: {
         type: String,
         required: true,
+    },
+    description:{
+        type: String,
+        required: false
     },
     email: {
         type: String,

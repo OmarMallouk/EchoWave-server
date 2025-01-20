@@ -1,0 +1,2 @@
+src/modules/pythonModules/originalityModel/normalized_vectors.pkl filter=lfs diff=lfs merge=lfs -text
+src/modules/pythonModules/genreModel/model.safetensors filter=lfs diff=lfs merge=lfs -text

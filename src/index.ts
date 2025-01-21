@@ -24,8 +24,8 @@ app.use("/api/lyrics", aiRoutes);
 app.use("/api/", songs);
 app.use('/uploads', express.static('uploads'));
 
-app.listen(8080, '0.0.0.0', async () => {
-    console.log("Server running on port 8080");
+app.listen(8000, '0.0.0.0', async () => {
+    console.log("Server running on port 8000");
 
     try {
         await connectToDatabase();

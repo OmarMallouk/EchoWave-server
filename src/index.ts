@@ -24,9 +24,12 @@ app.use("/api/lyrics", aiRoutes);
 app.use("/api/", songs);
 app.use('/uploads', express.static('uploads'));
 
-app.listen(8080, async () => {
+app.listen(8080, '0.0.0.0', async () => {
     console.log("Server running on port 8080");
-  
-     await connectToDatabase();
-  });
-  
+
+    try {
+        await connectToDatabase();
+    } catch (error) {
+        console.error("Failed to connect to the database:", error);
+    }
+});

@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 from sklearn.metrics.pairwise import cosine_similarity
 
-file_path = r"C:\Users\amer\Desktop\newSimilarityDataset.csv"
+file_path = r"./newSimilarityDataset.csv"
 
 def get_lyrics_similarity(query_lyrics, top_n=2, max_lyric_length=200):
     df = pd.read_csv(file_path, usecols=['artist_name', 'track_name', 'lyrics'])

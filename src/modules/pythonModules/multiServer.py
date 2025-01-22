@@ -91,4 +91,4 @@ def similarity():
     return jsonify(results)  
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(host='35.181.154.194', port=5000, debug=True)

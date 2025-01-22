@@ -11,7 +11,7 @@ import aiRoutes from "./utils/aiRoutes";
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "http://35.181.154.194:5173",
     methods: ["GET","POST","PUT","DELETE"],
     credentials: true
 }))

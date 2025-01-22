@@ -4,4 +4,4 @@
 src/modules/pythonModules/moodModel/model.safetensors
 src/modules/pythonModules/genreModel/model.safetensors
 # src/modules/pythonModules/originalityModel/normalized_vectors.pkl__pycache__/
-src/modules/pythonModules/venv
+/venv/
